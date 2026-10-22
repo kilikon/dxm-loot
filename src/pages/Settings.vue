@@ -174,6 +174,7 @@ onMounted(async () => {
 
 const handleSaveSettings = async () => {
   await db.saveUserSettings({
+    key: 'user-settings',
     theme: settings.theme as 'light' | 'dark',
     language: settings.language as 'zh-CN' | 'en-US',
     enableAutoSubmit: settings.enableAutoSubmit,
@@ -226,7 +227,7 @@ const handleFileSelected = async (event: Event) => {
 
   try {
     const text = await file.text()
-    const data = JSON.parse(text)
+    JSON.parse(text)  // 验证 JSON 格式
 
     ElMessageBox.confirm(
       '确定要导入数据吗？这会覆盖现有数据。',

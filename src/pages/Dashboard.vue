@@ -316,9 +316,8 @@ const handleStartMonitoring = async () => {
     )
 
     // 请求屏幕共享
-    const stream = await captureService.requestScreenCapture({
-      displaySurface: 'window',
-      cursor: 'never'
+    await captureService.requestScreenCapture({
+      displaySurface: 'window'
     })
 
     captureState.value.hasStream = true

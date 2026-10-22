@@ -106,7 +106,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { db } from '@/services/database'
 
@@ -128,6 +128,7 @@ onMounted(async () => {
 
 const handleSaveCalibration = async () => {
   await db.saveCalibration({
+    key: 'calibration',
     screenOffsetX: calibrationForm.screenOffsetX,
     screenOffsetY: calibrationForm.screenOffsetY,
     roiWidth: calibrationForm.roiWidth,

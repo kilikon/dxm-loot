@@ -27,6 +27,7 @@ export const useGameStore = defineStore('game', () => {
       characterName,
       characterClass,
       level,
+      startTime: Date.now(),
       totalExp: 0,
       totalMoney: 0,
       duration: 0,

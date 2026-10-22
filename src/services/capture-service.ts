@@ -11,7 +11,7 @@ export interface CaptureOptions {
 
 export class ScreenCaptureService {
   private stream: MediaStream | null = null
-  private videoTrack: MediaStreamVideoTrack | null = null
+  private videoTrack: MediaStreamTrack | null = null
   private isCapturing = false
   private frameCallback: ((frame: ImageBitmap) => void) | null = null
   private animationFrameId: number | null = null
@@ -23,15 +23,14 @@ export class ScreenCaptureService {
     const constraints: DisplayMediaStreamOptions = {
       video: {
         displaySurface: options.displaySurface || 'window',
-        cursor: options.cursor || 'never',
         frameRate: { ideal: options.frameRate || 30 }
-      },
+      } as any,
       audio: false // 音频强制禁用
     }
 
     try {
       this.stream = await navigator.mediaDevices.getDisplayMedia(constraints)
-      this.videoTrack = this.stream.getVideoTracks()[0]
+      this.videoTrack = this.stream.getVideoTracks()[0] as MediaStreamTrack
 
       // 监听用户停止共享
       this.videoTrack.onended = () => {
@@ -149,7 +148,7 @@ export class ScreenCaptureService {
   getState(): {
     isCapturing: boolean
     hasStream: boolean
-    videoTrack: MediaStreamVideoTrack | null
+    videoTrack: MediaStreamTrack | null
   } {
     return {
       isCapturing: this.isCapturing,

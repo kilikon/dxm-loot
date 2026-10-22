@@ -10,7 +10,7 @@
           <el-menu
             :default-active="$route.path"
             mode="horizontal"
-            @select="(key) => $router.push(key)"
+            @select="(key: string) => $router.push(key)"
             class="nav-menu"
           >
             <el-menu-item index="/">控制面板</el-menu-item>

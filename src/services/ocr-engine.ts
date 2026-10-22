@@ -19,7 +19,6 @@ export interface RecognitionResult {
 export class OCREngine {
   private worker: Tesseract.Worker | null = null
   private isInitialized = false
-  private processingQueue: ImageBitmap[] = []
   private isProcessing = false
 
   /**
@@ -29,17 +28,17 @@ export class OCREngine {
     if (this.isInitialized) return
 
     try {
-      this.worker = await Tesseract.createWorker({
-        logger: (m) => {
+      this.worker = await (Tesseract as any).createWorker({
+        logger: (m: any) => {
           if (m.status === 'recognizing') {
             console.log(`OCR 进度: ${Math.round(m.progress * 100)}%`)
           }
         }
       })
 
-      await this.worker.loadLanguage('chi_sim')
-      await this.worker.initialize('chi_sim')
-      await this.worker.setParameters({
+      await (this.worker as any).loadLanguage('chi_sim')
+      await (this.worker as any).initialize('chi_sim')
+      await (this.worker as any).setParameters({
         tessedit_char_whitelist: '0123456789,.\\/+-'
       })
 
